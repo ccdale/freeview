@@ -3,7 +3,7 @@ import os
 import pytest
 
 import freeview
-from freeview.tstomp4 import fileInfo, FqfnNotExits
+from freeview.tstomp4 import fileInfo, FqfnNotExits, FfmpegReadError
 
 
 def test_version():
@@ -25,4 +25,13 @@ def test_fileInfo_not_exist():
     assert not os.path.exists(fqfn)
     with pytest.raises(SystemExit):
         with pytest.raises(FqfnNotExits):
+            finfo = fileInfo(fqfn)
+
+
+def test_fileInfo_failed():
+    here = os.path.dirname(os.path.realpath(__file__))
+    fqfn = os.path.join(here, "random.not.ts")
+    assert os.path.exists(fqfn)
+    with pytest.raises(SystemExit):
+        with pytest.raises(FfmpegReadError):
             finfo = fileInfo(fqfn)
