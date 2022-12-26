@@ -12,7 +12,7 @@ def test_version():
 
 def test_fileInfo():
     here = os.path.dirname(os.path.realpath(__file__))
-    fqfn = os.path.join(here, "withsubs.ts")
+    fqfn = os.path.join(here, "freeview.ts")
     assert os.path.exists(fqfn)
     finfo = fileInfo(fqfn)
     assert "streams" in finfo
